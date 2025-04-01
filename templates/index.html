@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mystery hand</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://mattiapapaccioli.com/static/style.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+      * {
+        color: gold;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="flex flex-col items-center justify-evenly h-full">
+      <h1>mystery hand</h1>
+
+      <div class="flex p-4 justify-evenly w-1/2">
+        <form action="/submit" method="post">
+          <label for="yt">yt link</label>
+          <input type="text" required id="yt" name="yt" class="bg-white text-black" />
+          <input
+            type="submit"
+            class="bg-gray-500 p-4"
+          />
+        </form>
+      </div>
+      <ul>
+        {% for file in files %}
+        <a href="{{file}}"><li>{{file}}</li></a>
+        {% endfor %}
+      </ul>
+    </main>
+  </body>
+</html>
