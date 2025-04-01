@@ -47,7 +47,6 @@ def get_mistery(link):
     if "🔴" in video_title:
         return
     
-
     soup = BeautifulSoup(transcript, 'html.parser')
 
     try:
@@ -57,16 +56,27 @@ def get_mistery(link):
 
     for e in transcript:
         if "mystery hand" in str(e):
-            print(e['data-start'])
-            print(e.text)
+            # print(e['data-start'])
+            # print(e.text)
             t = e['data-start'].split('.')[0]
-            print(f"https://youtube.com/watch?v={link}&t={t}")
+            # print(f"https://youtube.com/watch?v={link}&t={t}")
             os.system(f"touch hands/{video_title}")
             os.system(f'grep -qxF "https://youtube.com/watch?v={link}\&t={t}" hands/{video_title} || echo "https://youtube.com/watch?v={link}\&t={t}" >> hands/{video_title} ')
-            print("-" * 50)
+            # print("-" * 50)
+
 
 
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+
+    # data = requests.get("https://www.youtube.com/@TritonPoker/streams").content.decode()
+
+    # # print(data)
+
+    # links = p.findall(data)
+    # links = list(set(links))
+
+    # for link in links:
+    #     get_mistery(link)
+    app.run(debug=False, port=7777)

@@ -10,6 +10,4 @@ COPY . .
 
 RUN pip3  install --break-system-packages -r requirements.txt
 
-RUN chmod +x main.py
-
-CMD ["./main.py"]
+CMD ["gunicorn", "--config", "config.py", "app:app"]

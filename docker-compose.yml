@@ -1,0 +1,12 @@
+name: mystery_hand
+services:
+  mystery_hand:
+    ports:
+      - 7777:7777
+    container_name: mystery
+    volumes:
+      - hands:/usr/src/app/hands
+    image: mystery_hand:latest
+
+volumes:
+  hands:
