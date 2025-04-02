@@ -4,29 +4,32 @@ import requests
 import re
 from bs4 import BeautifulSoup
 import os
-from flask import  Flask, render_template, request, send_from_directory
+from flask import  Flask, render_template, request, redirect
 from urllib.parse import urlparse, parse_qs
+import logging
+
 
 app = Flask(__name__)
-
+app.logger.setLevel(logging.INFO)
 p = re.compile(r'"videoId":"(.*?)"')
 p2 = re.compile(r'data-ph-capture-attribute-title="(.*?)"')
 
 @app.route('/', methods=["GET"])
 def render_home():
-    files = os.listdir("hands")
-    # print(files)
-    
+    files = sorted(os.listdir("hands"))
+    # print(files)    
+    app.logger.info(f"handled get home")
     return render_template("index.html", files=files)
 
 @app.route("/submit", methods=["POST"])
 def submit():
-    files = os.listdir("hands")
     if request.method == "POST":
         link = parse_qs(urlparse(request.form["yt"]).query)["v"][0]
         print(link)
+        app.logger.info(f"handled {link}")
         get_mistery(link)
-    return render_template("index.html", files=files)
+    app.logger.info(f"handled post submit")
+    return redirect("/", code=302)
 
 @app.route("/<path:file>")
 def serve(file):
@@ -35,6 +38,7 @@ def serve(file):
     with open(f"hands/{file}", "r") as f:
         c = f.readlines()
     c = [e.strip() for e in c]
+    app.logger.info(f"handled {file}")
     return render_template("hands.html", links=c)
 
 
